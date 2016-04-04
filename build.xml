@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<project name="config" default="build">
+    <target name="build" description="Run CI jobs" depends="clean,prepare,phpunit"/>
+
+    <target name="clean">
+        <delete dir="${basedir}/artifacts/" includes="**/*" excludes="**/.gitkeep"/>
+        <mkdir dir="${basedir}/artifacts/logs/"/>
+        <mkdir dir="${basedir}/artifacts/coverage/"/>
+    </target>
+
+    <target name="prepare">
+        <get src="http://getcomposer.org/composer.phar" dest="artifacts/composer.phar"/>
+        <exec executable="php" failonerror="true">
+            <arg value="artifacts/composer.phar"/>
+            <arg value="install"/>
+            <arg value="--dev"/>
+        </exec>
+    </target>
+
+    <target name="phpunit">
+        <exec executable="phpunit" failonerror="true">
+            <arg line="--debug"/>
+        </exec>
+    </target>
+
+</project>

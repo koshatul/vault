@@ -1,0 +1,30 @@
+{
+	"name": "koshatul/vault",
+	"description": "Koshatul Vault Config Storage",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Kosh",
+			"email": "koshatul@gmail.com",
+			"homepage": "http://www.koshatul.com/"
+		}
+	],
+	"require": {
+		"php": ">=5.3",
+		"yosymfony/toml": "~0.3.3",
+		"guzzlehttp/guzzle": "^6.2.0"
+	},
+	"require-dev": {
+		"icecave/archer": "dev-master"
+	},
+	"autoload": {
+		"psr-4": {
+			"Koshatul\\Vault\\": "src"
+		}
+	},
+    "autoload-dev": {
+        "psr-4": {
+            "GuzzleHttp\\Tests\\": "vendor/guzzlehttp/guzzle/tests/"
+        }
+    }
+}
