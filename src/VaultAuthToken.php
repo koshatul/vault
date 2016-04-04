@@ -14,23 +14,23 @@ use Psr\Http\Message\RequestInterface;
 
 class VaultAuthToken implements VaultAuth
 {
-	protected $_token;
+    protected $_token;
 
-	public function __construct($token)
-	{
-		$this->_token = $token;
-	}
+    public function __construct($token)
+    {
+        $this->_token = $token;
+    }
 
-	public function getStackFunction()
-	{
-		return Middleware::mapRequest(function (RequestInterface $request) {
-			// Notice that we have to return a request object
-			return $request->withHeader('X-Vault-Token', $this->_token);
-		});
-	}
+    public function getStackFunction()
+    {
+        return Middleware::mapRequest(function (RequestInterface $request) {
+            // Notice that we have to return a request object
+            return $request->withHeader('X-Vault-Token', $this->_token);
+        });
+    }
 
-	public function getMethod()
-	{
-		return 'token';
-	}
+    public function getMethod()
+    {
+        return 'token';
+    }
 }

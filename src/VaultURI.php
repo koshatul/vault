@@ -11,16 +11,15 @@ namespace Koshatul\Vault;
 
 class VaultURI
 {
-	protected $_uri;
+    protected $_uri;
 
-	public function __construct($vaultURI)
-	{
-		$this->_uri = $vaultURI;
-	}
+    public function __construct($vaultURI)
+    {
+        $this->_uri = $vaultURI;
+    }
 
-	public function getURI()
-	{
-		return $this->_uri;
-	}
-
+    public function getURI()
+    {
+        return $this->_uri;
+    }
 }
