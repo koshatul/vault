@@ -3,9 +3,11 @@ Hashicorp Vault Class for PHP
 
 A interface for retrieving values from Hashicorp Vault in a PHP Project.
 
-[![Build Status](https://travis-ci.org/Koshatul/vault.png?branch=master)](https://travis-ci.org/Koshatul/vault)
-[![Latest Stable Version](https://poser.pugx.org/koshatul/vault/v/stable.png)](https://packagist.org/packages/koshatul/vault)
-[![Total Downloads](https://poser.pugx.org/koshatul/vault/downloads.png)](https://packagist.org/packages/koshatul/vault)
+[![Build Status](https://travis-ci.org/Koshatul/vault.svg?branch=master)](https://travis-ci.org/Koshatul/vault)
+[![Latest Stable Version](https://poser.pugx.org/koshatul/vault/v/stable)](https://packagist.org/packages/koshatul/vault)
+[![Total Downloads](https://poser.pugx.org/koshatul/vault/downloads)](https://packagist.org/packages/koshatul/vault)
+[![Latest Unstable Version](https://poser.pugx.org/koshatul/vault/v/unstable)](https://packagist.org/packages/koshatul/vault)
+[![License](https://poser.pugx.org/koshatul/vault/license)](https://packagist.org/packages/koshatul/vault)
 
 Installation
 ------------
