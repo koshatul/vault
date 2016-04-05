@@ -38,6 +38,12 @@ class VaultTest extends PHPUnit_Framework_TestCase
                 [],
                 json_encode($responseBody)
             ),
+            new Response(404,
+                []
+            ),
+            new Response(204,
+                []
+            ),
         ]);
 
         $vaultURI = new VaultURI('http://127.0.0.1:8200/v1/');
@@ -49,7 +55,20 @@ class VaultTest extends PHPUnit_Framework_TestCase
 
         $value = $vault->read('test/value');
 
-        $this->assertEquals('a490ed98-15ea-4d0a-b0fd-9d46f6521504', $value->get('bingo'), 'Test Retrieve Value');
+        $this->assertEquals('a490ed98-15ea-4d0a-b0fd-9d46f6521504', $value->get('bingo'), 'Test Retrieve Value, Value Exists along with field');
+        $this->assertNull($value->get('doesnotexist'), 'Test Retrieve Value, Value Exists, Field does not exist');
+
+        $value = $vault->read('test/invalid');
+
+        $this->assertInstanceOf('\\Koshatul\\Vault\\VaultResponse', $value, 'Test Retrieve Value, Value does not exist, VaultResponse returned');
+        $this->assertEquals(null, $value->get(), 'Test Retrieve Value, Value does not exist');
+
+        $value = $vault->read('test/shouldnotget');
+
+        $this->assertInstanceOf('\\Koshatul\\Vault\\VaultResponse', $value, 'Test Retrieve Value, Value does not exist, VaultResponse returned');
+        $this->assertEquals(null, $value->get(), 'Test Retrieve Value, Value does not exist');
+
+
     }
 
     public function testPOST()
@@ -57,6 +76,7 @@ class VaultTest extends PHPUnit_Framework_TestCase
         $mock = new MockHandler([
             new Response(204),
             new Response(204),
+            new Response(403),
         ]);
 
         $vaultURI = new VaultURI('http://127.0.0.1:8200/v1/');
@@ -71,11 +91,11 @@ class VaultTest extends PHPUnit_Framework_TestCase
 
         $value = $vault->write('test/value', 'testing');
         $this->assertEquals(true, $value, 'Test Setting Single Value');
+
+        $value = $vault->write('test/value', 'testing');
+        $this->assertEquals(null, $value, 'Test Setting Single Value, Forbidden');
     }
 
-    /**
-     * @expectedException \GuzzleHttp\Exception\ClientException
-     */
     public function testUnseal()
     {
         $mock = new MockHandler([

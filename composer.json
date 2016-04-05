@@ -9,6 +9,10 @@
 			"homepage": "http://www.koshatul.com/"
 		}
 	],
+    "bin": [
+        "bin/vaultenv.php",
+        "bin/vaultwrap.sh"
+    ],
 	"require": {
 		"php": ">=5.5",
 		"yosymfony/toml": "~0.3.3",

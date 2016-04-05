@@ -12,6 +12,8 @@ namespace Koshatul\Vault;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\CurlHandler;
 use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Exception\RequestException;
+
 
 class Vault
 {
@@ -32,6 +34,7 @@ class Vault
             [
                 'handler' => $this->_stack,
                 'base_uri' => $this->_uri->getURI(),
+                'http_errors' => false,
             ]
         );
     }
@@ -62,7 +65,9 @@ class Vault
         $response = $this->_PUT('sys/unseal', ['key' => $key]);
         if (is_string($response)) {
             $response = json_decode($response, true);
+        }
 
+        if (is_array($response) and array_key_exists('sealed', $response)) {
             return $response['sealed'];
         }
 
@@ -71,16 +76,24 @@ class Vault
 
     public function _requestWithData($method, $uri, $data)
     {
-        $response = $this->_client->request($method, $uri, ['json' => $data]);
+        try {
+            $response = $this->_client->request($method, $uri, ['json' => $data]);
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+        }
         //echo "Status Code: ".$response->getStatusCode().PHP_EOL;
-        switch ($response->getStatusCode()) {
-            case 200:
-            case 404:
-                return $response->getBody()->getContents();
-            case 204:
-                return true;
-            default:
-                return false;
+        if (!is_null($response)) {
+            switch ($response->getStatusCode()) {
+                case 200:
+                case 404:
+                    return $response->getBody()->getContents();
+                case 204:
+                    return true;
+                default:
+                    return false;
+            }
+        } else {
+            return null;
         }
     }
 
@@ -96,13 +109,21 @@ class Vault
 
     public function _GET($uri)
     {
-        $response = $this->_client->get($uri);
-        switch ($response->getStatusCode()) {
-            case 200:
-                return $response->getBody()->getContents();
-            default:
-                return null;
+        try {
+            $response = $this->_client->get($uri);
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+        }
+        if (!is_null($response)) {
+            switch ($response->getStatusCode()) {
+                case 200:
+                    return $response->getBody()->getContents();
+                default:
+                    return null;
 
+            }
+        } else {
+            return null;
         }
     }
 }

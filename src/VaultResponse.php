@@ -42,6 +42,9 @@ class VaultResponse
         if (!array_key_exists($source, $this->_data)) {
             return null;
         }
+        if (!is_array($this->_data[$source])) {
+            return null;
+        }
         if (!is_null($field)) {
             if (array_key_exists($field, $this->_data[$source])) {
                 return $this->_data[$source][$field];

@@ -29,8 +29,4 @@ class VaultAuthToken implements VaultAuth
         });
     }
 
-    public function getMethod()
-    {
-        return 'token';
-    }
 }

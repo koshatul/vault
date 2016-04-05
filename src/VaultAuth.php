@@ -12,5 +12,4 @@ namespace Koshatul\Vault;
 interface VaultAuth
 {
     public function getStackFunction();
-    public function getMethod();
 }
