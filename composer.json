@@ -17,9 +17,6 @@
 		"php": ">=5.5",
 		"guzzlehttp/guzzle": "^6.2.0"
 	},
-	"require-dev": {
-		"icecave/archer": "dev-master"
-	},
 	"autoload": {
 		"psr-4": {
 			"Koshatul\\Vault\\": "src"
