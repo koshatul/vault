@@ -9,6 +9,16 @@ if (preg_match('{^(.*)/vendor/.+/.+$}', $packageRoot, $matches)) {
     require $packageRoot . '/vendor/autoload.php';
 }
 
+use Koshatul\Vault\Vault;
+use Koshatul\Vault\VaultAuthToken;
+use Koshatul\Vault\VaultURI;
+
+function die_usage()
+{
+    echo 'usage: ' . __FILE__ . ' --token=<token> --addr=<addr> --key=<key>';
+    exit(99);
+}
+
 $shortopts  = '';
 $shortopts .= 't:';
 $shortopts .= 'a:';
@@ -21,12 +31,6 @@ $longopts  = array(
 );
 
 $options = getopt($shortopts, $longopts);
-
-function die_usage()
-{
-    echo 'usage: ' . __FILE__ . ' --token=<token> --addr=<addr> --key=<key>';
-    exit(99);
-}
 
 $vault_token = null;
 $vault_addr  = null;
@@ -54,10 +58,6 @@ foreach ($options as $key => $value) {
 if (is_null($vault_addr) or is_null($vault_token) or is_null($vault_key)) {
     die_usage();
 }
-
-use Koshatul\Vault\Vault;
-use Koshatul\Vault\VaultAuthToken;
-use Koshatul\Vault\VaultURI;
 
 $vaultURI = new VaultURI($vault_addr);
 
