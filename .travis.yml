@@ -6,8 +6,5 @@ matrix:
     allow_failures: [{"php": "hhvm"}]
     fast_finish: true
 
-install:
-  - ./.travis/.travis.install
-
 script:
-  - phpunit
+  - ant
