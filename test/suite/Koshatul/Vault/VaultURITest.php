@@ -13,18 +13,17 @@ use PHPUnit_Framework_TestCase;
 
 class VaultURITest extends PHPUnit_Framework_TestCase
 {
-
     public function testPassthrough()
     {
-		$uri = 'http://127.0.0.1:8200/v1/';
-		$vaultURI = new VaultURI($uri);
+        $uri = 'http://127.0.0.1:8200/v1/';
+        $vaultURI = new VaultURI($uri);
 
-		$this->assertEquals($uri, $vaultURI->getURI(), 'Test Passthrough Valid URI');
+        $this->assertEquals($uri, $vaultURI->getURI(), 'Test Passthrough Valid URI');
     }
 
     public function testMissingPort()
     {
-    	$uri = 'http://127.0.0.1/v1/';
+        $uri = 'http://127.0.0.1/v1/';
         $vaultURI = new VaultURI($uri);
 
         $this->assertEquals($uri, $vaultURI->getURI(), 'Test Missing Port');
@@ -32,15 +31,14 @@ class VaultURITest extends PHPUnit_Framework_TestCase
 
     public function testMissingPath()
     {
-		$uri = 'http://127.0.0.1:8200/';
-		$vaultURI = new VaultURI($uri);
-
-		$this->assertEquals($uri.'v1/', $vaultURI->getURI(), 'Test Missing v1 tag [with path /]');
-
-
-    	$uri = 'http://127.0.0.1';
+        $uri = 'http://127.0.0.1:8200/';
         $vaultURI = new VaultURI($uri);
 
-        $this->assertEquals($uri.'/v1/', $vaultURI->getURI(), 'Test Missing v1 tag [without path /]');
+        $this->assertEquals($uri . 'v1/', $vaultURI->getURI(), 'Test Missing v1 tag [with path /]');
+
+        $uri = 'http://127.0.0.1';
+        $vaultURI = new VaultURI($uri);
+
+        $this->assertEquals($uri . '/v1/', $vaultURI->getURI(), 'Test Missing v1 tag [without path /]');
     }
 }

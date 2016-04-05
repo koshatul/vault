@@ -67,8 +67,6 @@ class VaultTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('\\Koshatul\\Vault\\VaultResponse', $value, 'Test Retrieve Value, Value does not exist, VaultResponse returned');
         $this->assertEquals(null, $value->get(), 'Test Retrieve Value, Value does not exist');
-
-
     }
 
     public function testPOST()

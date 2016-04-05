@@ -10,10 +10,9 @@
 namespace Koshatul\Vault;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\CurlHandler;
 use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Exception\RequestException;
-
 
 class Vault
 {

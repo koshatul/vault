@@ -28,5 +28,4 @@ class VaultAuthToken implements VaultAuth
             return $request->withHeader('X-Vault-Token', $this->_token);
         });
     }
-
 }

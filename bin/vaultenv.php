@@ -9,22 +9,23 @@ if (preg_match('{^(.*)/vendor/.+/.+$}', $packageRoot, $matches)) {
     require $packageRoot . '/vendor/autoload.php';
 }
 
-$shortopts  = "";
-$shortopts .= "t:";
-$shortopts .= "a:";
-$shortopts .= "k:";
+$shortopts  = '';
+$shortopts .= 't:';
+$shortopts .= 'a:';
+$shortopts .= 'k:';
 
 $longopts  = array(
-    "token:",
-    "addr:",
-    "key:",
+    'token:',
+    'addr:',
+    'key:',
 );
 
 $options = getopt($shortopts, $longopts);
 
-function die_usage() {
-	echo "usage: ".__FILE__." --token=<token> --addr=<addr> --key=<key>";
-	exit(99);
+function die_usage()
+{
+    echo 'usage: ' . __FILE__ . ' --token=<token> --addr=<addr> --key=<key>';
+    exit(99);
 }
 
 $vault_token = null;
@@ -32,26 +33,26 @@ $vault_addr  = null;
 $vault_key   = null;
 
 foreach ($options as $key => $value) {
-	switch($key) {
-		case 't':
-		case 'token':
-			$vault_token = $value;
-			break;
-		case 'a':
-		case 'addr':
-			$vault_addr = $value;
-			break;
-		case 'k':
-		case 'key':
-			$vault_key = $value;
-			break;
-		default:
-			die_usage();
-	}
+    switch ($key) {
+        case 't':
+        case 'token':
+            $vault_token = $value;
+            break;
+        case 'a':
+        case 'addr':
+            $vault_addr = $value;
+            break;
+        case 'k':
+        case 'key':
+            $vault_key = $value;
+            break;
+        default:
+            die_usage();
+    }
 }
 
 if (is_null($vault_addr) or is_null($vault_token) or is_null($vault_key)) {
-	die_usage();
+    die_usage();
 }
 
 use Koshatul\Vault\Vault;
@@ -68,7 +69,7 @@ $value = $vault->read($vault_key);
 $env = $value->get();
 
 if (is_array($env)) {
-	foreach ($env as $key => $value) {
-		echo "export ".$key."=".escapeshellarg($value).PHP_EOL;
-	}	
+    foreach ($env as $key => $value) {
+        echo 'export ' . $key . '=' . escapeshellarg($value) . PHP_EOL;
+    }
 }
