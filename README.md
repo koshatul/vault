@@ -1,5 +1,7 @@
-Hashicorp Vault Class for PHP
+~Hashicorp Vault Class for PHP~
 ===============================
+
+**This is unmaintained, I haven't used it in quite a while and don't have the time to update and test it properly.**
 
 A interface for retrieving values from Hashicorp Vault in a PHP Project.
 
